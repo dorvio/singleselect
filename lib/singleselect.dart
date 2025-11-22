@@ -6,7 +6,7 @@ import 'package:singleselect/single_drop_down.dart';
 
 class SingleSelectFormField extends FormField<String> {
   final List<String> items;
-  final String labelText;
+  final String? labelText;
   final TextStyle labelStyle;
   final Color backgroundColor;
   final Color optionListBackgroundColor;
@@ -17,7 +17,7 @@ class SingleSelectFormField extends FormField<String> {
   SingleSelectFormField({
     Key? key,
     required this.items,
-    this.labelText = "Wybierz",
+    this.labelText,
     this.labelStyle = const TextStyle(color: Colors.black),
     this.backgroundColor = Colors.white,
     this.optionListBackgroundColor = Colors.grey,
@@ -53,7 +53,7 @@ class SingleSelectFormField extends FormField<String> {
 class _SingleSelectFieldWidget extends StatefulWidget {
   final FormFieldState<String> state;
   final List<String> items;
-  final String labelText;
+  final String? labelText;
   final TextStyle labelStyle;
   final Color backgroundColor;
   final Color optionListBackgroundColor;
@@ -65,7 +65,7 @@ class _SingleSelectFieldWidget extends StatefulWidget {
     Key? key,
     required this.state,
     required this.items,
-    required this.labelText,
+    this.labelText,
     required this.labelStyle,
     required this.backgroundColor,
     required this.optionListBackgroundColor,
