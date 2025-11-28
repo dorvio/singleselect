@@ -136,10 +136,15 @@ class __SingleSelectFieldWidgetState extends State<_SingleSelectFieldWidget> {
 
   @override
   Widget build(BuildContext context) {
+
+    final bool isEmpty = widget.state.value == null || widget.state.value!.isEmpty;
+
     return GestureDetector(
       key: actionKey,
       onTap: toggleDropdown,
       child: InputDecorator(
+        isFocused: isDropdownOpened,
+        isEmpty: isEmpty,
         decoration: widget.inputDecoration ?? InputDecoration(
           labelText: widget.labelText,
           labelStyle: widget.labelStyle,
@@ -154,10 +159,8 @@ class __SingleSelectFieldWidgetState extends State<_SingleSelectFieldWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              widget.state.value ?? widget.labelText,
-              style: widget.state.value == null
-                  ? widget.labelStyle
-                  : widget.labelStyle.copyWith(color: Colors.black),
+              !isEmpty ? widget.state.value! : "",
+              style: widget.labelStyle,
             ),
             Icon(
               isDropdownOpened ? Icons.arrow_drop_up : Icons.arrow_drop_down,

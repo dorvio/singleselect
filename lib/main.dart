@@ -39,10 +39,10 @@ class _MyHomePageState extends State<MyHomePage> {
           items: ['TAK', 'NIE'],
           inputDecoration: InputDecoration(
             labelText: "Wybór",
-            labelStyle: const TextStyle(color: Colors.grey),
+            labelStyle: const TextStyle(color: Colors.grey, fontSize: 20),
             prefixIcon: const Icon(Icons.location_on, color: Colors.grey),
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.pink, width: 2),
+              borderSide: BorderSide(color: Colors.pink, width: 10),
             ),
           ),
           optionListBackgroundColor: Colors.white,
