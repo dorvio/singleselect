@@ -8,6 +8,7 @@ class SingleSelectFormField extends FormField<String> {
   final List<String> items;
   final String? labelText;
   final TextStyle labelStyle;
+  final TextStyle selectedTextStyle;
   final Color backgroundColor;
   final Color optionListBackgroundColor;
   final Color optionListTextColor;
@@ -19,6 +20,7 @@ class SingleSelectFormField extends FormField<String> {
     required this.items,
     this.labelText,
     this.labelStyle = const TextStyle(color: Colors.black),
+    this.selectedTextStyle = const TextStyle(color: Colors.black),
     this.backgroundColor = Colors.white,
     this.optionListBackgroundColor = Colors.grey,
     this.optionListTextColor = Colors.black,
@@ -55,6 +57,7 @@ class _SingleSelectFieldWidget extends StatefulWidget {
   final List<String> items;
   final String? labelText;
   final TextStyle labelStyle;
+  final TextStyle selectedTextStyle;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
   final Color backgroundColor;
   final Color optionListBackgroundColor;
   final Color optionListTextColor;
@@ -66,6 +69,7 @@ class _SingleSelectFieldWidget extends StatefulWidget {
     required this.state,
     required this.items,
     this.labelText,
+    required this.selectedTextStyle,
     required this.labelStyle,
     required this.backgroundColor,
     required this.optionListBackgroundColor,
