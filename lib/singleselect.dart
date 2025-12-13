@@ -14,6 +14,7 @@ class SingleSelectFormField extends FormField<String> {
   final Color optionListTextColor;
   final double optionListBorderRadius;
   final InputDecoration? inputDecoration;
+  final TextEditingController? controller;
 
   SingleSelectFormField({
     Key? key,
@@ -26,6 +27,7 @@ class SingleSelectFormField extends FormField<String> {
     this.optionListTextColor = Colors.black,
     this.optionListBorderRadius = 8.0,
     this.inputDecoration,
+    this.controller,
     String? initialValue,
     FormFieldSetter<String>? onSaved,
     FormFieldValidator<String>? validator,
@@ -40,6 +42,7 @@ class SingleSelectFormField extends FormField<String> {
       return _SingleSelectFieldWidget(
         state: state,
         items: items,
+        controller: controller,
         labelText: labelText,
         labelStyle: labelStyle,
         backgroundColor: backgroundColor,
@@ -64,6 +67,7 @@ class _SingleSelectFieldWidget extends StatefulWidget {
   final Color optionListTextColor;
   final double optionListBorderRadius;
   final InputDecoration? inputDecoration;
+  final TextEditingController? controller;
 
   const _SingleSelectFieldWidget({
     Key? key,
@@ -77,6 +81,7 @@ class _SingleSelectFieldWidget extends StatefulWidget {
     required this.optionListTextColor,
     required this.optionListBorderRadius,
     this.inputDecoration,
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -155,6 +160,9 @@ class __SingleSelectFieldWidgetState extends State<_SingleSelectFieldWidget> {
                   ),
                   onTap: () {
                     widget.state.didChange(item);
+                    if(widget.controller != null) {
+                      widget.controller!.text = item;
+                    }
                     toggleDropdown();
                   },
                 );
