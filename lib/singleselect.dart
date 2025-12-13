@@ -47,6 +47,7 @@ class SingleSelectFormField extends FormField<String> {
         optionListTextColor: optionListTextColor,
         optionListBorderRadius: optionListBorderRadius,
         inputDecoration: inputDecoration,
+        selectedTextStyle: selectedTextStyle,
       );
     },
   );
@@ -90,16 +91,43 @@ class __SingleSelectFieldWidgetState extends State<_SingleSelectFieldWidget> {
   void toggleDropdown() {
     if (isDropdownOpened) {
       overlayEntry.remove();
-      isDropdownOpened = false;
+      setState(() {
+        isDropdownOpened = false;
+      });
     } else {
-      final renderBox = actionKey.currentContext?.findRenderObject() as RenderBox?;
+      final renderBox =
+      actionKey.currentContext?.findRenderObject() as RenderBox?;
       if (renderBox != null) {
         final offset = renderBox.localToGlobal(Offset.zero);
-        overlayEntry = _createOverlay(offset.dx, offset.dy + renderBox.size.height, renderBox.size.width);
+        overlayEntry = _createOverlay(
+          offset.dx,
+          offset.dy + renderBox.size.height,
+          renderBox.size.width,
+        );
         Overlay.of(context)!.insert(overlayEntry);
-        isDropdownOpened = true;
+        setState(() {
+          isDropdownOpened = true;
+        });
       }
     }
+  }
+
+  InputDecoration _effectiveDecoration() {
+    final base = widget.inputDecoration ?? const InputDecoration();
+
+    final enabled =
+        base.enabledBorder ?? base.border ?? const UnderlineInputBorder();
+
+    final focused =
+        base.focusedBorder ?? base.border ?? const UnderlineInputBorder();
+
+    final currentBorder = isDropdownOpened ? focused : enabled;
+
+    return base.copyWith(
+      border: currentBorder,
+      enabledBorder: currentBorder,
+      focusedBorder: currentBorder,
+    );
   }
 
   OverlayEntry _createOverlay(double x, double y, double width) {
@@ -149,27 +177,22 @@ class __SingleSelectFieldWidgetState extends State<_SingleSelectFieldWidget> {
       child: InputDecorator(
         isFocused: isDropdownOpened,
         isEmpty: isEmpty,
-        decoration: widget.inputDecoration ?? InputDecoration(
-          labelText: widget.labelText,
-          labelStyle: widget.labelStyle,
-          filled: true,
-          fillColor: widget.backgroundColor,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+        decoration: _effectiveDecoration().copyWith(
           errorText: widget.state.errorText,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              !isEmpty ? widget.state.value! : "",
-              style: widget.labelStyle,
+              isEmpty ? "" : widget.state.value!,
+              style: widget.selectedTextStyle,
             ),
             Icon(
-              isDropdownOpened ? Icons.arrow_drop_up : Icons.arrow_drop_down,
-              color: Colors.black,
-            )
+              isDropdownOpened
+                  ? Icons.arrow_drop_up
+                  : Icons.arrow_drop_down,
+              color: Colors.grey,
+            ),
           ],
         ),
       ),

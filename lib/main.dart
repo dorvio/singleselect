@@ -35,18 +35,39 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SingleSelectFormField(
-          items: ['TAK', 'NIE'],
-          inputDecoration: InputDecoration(
-            labelText: "Wybór",
-            labelStyle: const TextStyle(color: Colors.grey, fontSize: 20),
-            prefixIcon: const Icon(Icons.location_on, color: Colors.grey),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.pink, width: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextFormField(
+              //controller: _usernameController,
+              style: const TextStyle(color: Colors.grey),
+              decoration: InputDecoration(
+                labelText: "Nazwa wydarzenia",
+                labelStyle: const TextStyle(color: Colors.grey),
+                prefixIcon: const Icon(Icons.edit, color: Colors.grey),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.pink, width: 2),
+                ),
+              ),
             ),
-          ),
-          optionListBackgroundColor: Colors.white,
-          optionListTextColor: Colors.grey,
+            SingleSelectFormField(
+              items: ['TAK', 'NIE'],
+              optionListBackgroundColor: Colors.white,
+              selectedTextStyle: const TextStyle(color: Colors.grey),
+              inputDecoration: const InputDecoration(
+                labelText: "Wybór",
+                labelStyle: TextStyle(color: Colors.grey),
+                prefixIcon: Icon(Icons.location_on, color: Colors.grey),
+                border: UnderlineInputBorder(),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey, width: 1),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.pink, width: 2),
+                ),
+              ),
+            ),
+          ],
         )
       ),
     );
